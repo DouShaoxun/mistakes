@@ -1,6 +1,7 @@
 package cn.cruder.mistakes.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class SingletonTestService {
 
+    @Autowired
+    HelloService helloService;
+
     private String name;
 
     public void test(String pName) throws InterruptedException {
         name = pName;
+        helloService.sayHello();
         log.info("第一次打印, this:{}, name: {}", this, name);
         TimeUnit.SECONDS.sleep(3);
         log.info("第二次打印, this:{}, name: {}", this, name);
